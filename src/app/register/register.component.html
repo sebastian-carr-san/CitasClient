@@ -1,0 +1,58 @@
+<form [formGroup]="registerForm" (ngSubmit)="registerForm.valid && register()" autocomplete="off">
+    <h2 class="text-center text-primary">Registrate</h2>
+    <hr>
+
+    <div class="mb-3">
+        <label style="margin-right:10px">Soy: </label>
+        <label class="form-check-label">
+            <input type="radio" class="form-check-input" value="female" formControlName="gender"> Mujer
+        </label>
+        <label class="form-check-label">
+            <input type="radio" class="form-check-input ms-3" value="male" formControlName="gender"> Hombre
+        </label>
+    </div>
+    
+    <app-text-input
+        [formControl]="$any(registerForm.controls['username'])"
+        [label]="'Usuario'">
+    </app-text-input>
+    <app-text-input
+        [formControl]="$any(registerForm.controls['knownAs'])"
+        [label]="'Nickname'">
+    </app-text-input>
+    <app-date-picker
+        [formControl]="$any(registerForm.controls['dateOfBirth'])"
+        [label]="'Fecha de Nacimiento'" [maxDate]="maxDate">
+    </app-date-picker>
+    <app-text-input
+        [formControl]="$any(registerForm.controls['city'])"
+        [label]="'Ciudad'">
+    </app-text-input>
+    <app-text-input
+        [formControl]="$any(registerForm.controls['country'])"
+        [label]="'País'">
+    </app-text-input>
+    <app-text-input
+        [formControl]="$any(registerForm.controls['password'])"
+        [label]="'Contraseña'"
+        [type]="'password'">
+    </app-text-input>
+    <app-text-input
+        [formControl]="$any(registerForm.controls['confirmPassword'])"
+        [label]="'Confirmar Contraseña'"
+        [type]="'password'">
+    </app-text-input>
+
+    <div class="row" *ngIf="validationsErrors">
+        <ul class="text-danger">
+            <li *ngFor="let error of validationsErrors">
+                {{error}}
+            </li>
+        </ul>
+    </div>
+
+    <div class="text-center">
+        <button [disabled]="!registerForm.valid" class="btn btn-success me-2" type="submit">Registrarse</button>
+        <button class="btn btn-default" type="button" (click)="cancel()">Cancelar</button>
+    </div>
+</form>
